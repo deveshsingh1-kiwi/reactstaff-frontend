@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/reactstaff-frontend/static/css/main.ff02f4b5.css",
-    "main.js": "/reactstaff-frontend/static/js/main.5b837c02.js",
-    "index.html": "/reactstaff-frontend/index.html",
-    "main.ff02f4b5.css.map": "/reactstaff-frontend/static/css/main.ff02f4b5.css.map",
-    "main.5b837c02.js.map": "/reactstaff-frontend/static/js/main.5b837c02.js.map"
+    "main.css": "/static/css/main.ff02f4b5.css",
+    "main.js": "/static/js/main.5b837c02.js",
+    "index.html": "/index.html",
+    "main.ff02f4b5.css.map": "/static/css/main.ff02f4b5.css.map",
+    "main.5b837c02.js.map": "/static/js/main.5b837c02.js.map"
   },
   "entrypoints": [
     "static/css/main.ff02f4b5.css",
