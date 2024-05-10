@@ -36,7 +36,7 @@ function EmployeeDetails() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-lg-8 mx-auto">
+        <div className="col-lg-8 mx-auto mt-4">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Employee Details</h5>

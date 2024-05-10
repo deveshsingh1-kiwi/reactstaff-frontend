@@ -29,10 +29,11 @@ function EmployeeList() {
     <div className="container">
       <div className="row">
         <div className="col-lg-10 mx-auto">
-          <h1>Employees List</h1>
-          <Link to={`/employee/new`} className="btn btn-primary">
+          <Link to={`/employee/new`} className="btn btn-primary my-3">
             Create New Employee
           </Link>
+
+          <h1 className="text-center">Employees List</h1>
           <table className="table table-bordered">
             <thead>
               <tr>

@@ -27,12 +27,12 @@ function EmployeeRow({ employee, onDelete }) {
       <td>{employee.full_name}</td>
       <td>{employee.email}</td>
       <td>
-        <Link to={`/employee/${employee.id}/edit`} className="btn btn-warning">
+        <Link to={`/employee/${employee.id}`} className="btn btn-primary">
           View
         </Link>
         <Link
           to={`/employee/${employee.id}/edit`}
-          className="btn btn-primary ms-1"
+          className="btn btn-warning ms-1"
         >
           Edit
         </Link>

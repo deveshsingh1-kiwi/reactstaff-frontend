@@ -12,7 +12,7 @@ const EmployeeForm = ({
   return (
     <div className="container">
       <div className="row">
-        <div className="col-lg-8 mx-auto">
+        <div className="col-lg-8 mx-auto mt-4">
           <div className="card">
             <div className="card-header">
               <h5 className="card-title">{formTitle}</h5>
