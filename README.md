@@ -2,17 +2,70 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+1. Clone the repository.
 
-### `npm start`
+### In the project directory:
+
+2. Install dependencies: `npm install`.
+3. Run the development server: `npm start`.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## Backend
+
+- **Framework**: Ruby on Rails 7.1
+- **Database**: PostgreSQL
+
+## API Endpoints
+
+### Get All Employees
+
+- **URL**: `https://reactstaff-backend.onrender.com/api/v1/employees`
+- **Method**: GET
+- **Description**: Retrieves a list of all employees.
+
+### Get Employee by ID
+
+- **URL**: `https://reactstaff-backend.onrender.com/api/v1/employees/:id`
+- **Method**: GET
+- **Description**: Retrieves details of a specific employee by ID.
+
+### Create New Employee
+
+- **URL**: `https://reactstaff-backend.onrender.com/api/v1/employees`
+- **Method**: POST
+- **Description**: Creates a new employee record.
+
+### Update Employee
+
+- **URL**: `https://reactstaff-backend.onrender.com/api/v1/employees/:id`
+- **Method**: PUT
+- **Description**: Updates an existing employee record by ID.
+
+### Delete Employee
+
+- **URL**: `https://reactstaff-backend.onrender.com/api/v1/employees/:id`
+- **Method**: DELETE
+- **Description**: Deletes an existing employee record by ID.
+
+## Contributing
+
+If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature-name`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add some feature'`).
+5. Push to the branch (`git push origin feature/your-feature-name`).
+6. Create a new Pull Request.
+
+## Available Scripts
 
 ### `npm test`
 
