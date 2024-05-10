@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import EmployeeForm from "./EmployeeForm";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeNewForm = () => {
   const [errors, setErrors] = useState([]);
@@ -18,6 +19,8 @@ const EmployeeNewForm = () => {
     date_of_hiring: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,19 +33,22 @@ const EmployeeNewForm = () => {
         formData
       );
       console.log(response.data);
+      const newEmployeeId = response.data.id;
+      // Redirect to the details page of the newly created employee
+      navigate(`/employee/${newEmployeeId}`);
       // Optionally, you can reset the form after successful submission
-      setFormData({
-        first_name: "",
-        last_name: "",
-        email: "",
-        contact_number: "",
-        address: "",
-        pincode: "",
-        city: "",
-        state: "",
-        date_of_birth: "",
-        date_of_hiring: "",
-      });
+      // setFormData({
+      //   first_name: "",
+      //   last_name: "",
+      //   email: "",
+      //   contact_number: "",
+      //   address: "",
+      //   pincode: "",
+      //   city: "",
+      //   state: "",
+      //   date_of_birth: "",
+      //   date_of_hiring: "",
+      // });
     } catch (error) {
       if (error.response && error.response.data) {
         setErrors(error.response.data);

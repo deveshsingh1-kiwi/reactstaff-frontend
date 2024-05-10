@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import EmployeeForm from "./EmployeeForm";
 
 const EmployeeEditForm = () => {
@@ -18,6 +18,8 @@ const EmployeeEditForm = () => {
     date_of_birth: "",
     date_of_hiring: "",
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployeeData = async () => {
@@ -46,6 +48,9 @@ const EmployeeEditForm = () => {
         formData
       );
       console.log(response.data);
+
+      // Redirect to the details page of the edited employee
+      navigate(`/employee/${id}`);
     } catch (error) {
       if (error.response && error.response.data) {
         setErrors(error.response.data);
