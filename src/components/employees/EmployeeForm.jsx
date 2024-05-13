@@ -75,8 +75,10 @@ const EmployeeForm = ({
                       />
                       {errors &&
                         errors.email &&
-                        errors.email.map((error) => (
-                          <span key={error} className="text-danger">
+                        errors.email.map((error, index) => (
+                          <span key={index} className="text-danger">
+                            {index > 0 && ", "}{" "}
+                            {/* Add a comma with space if it's not the first error */}
                             {error}
                           </span>
                         ))}
@@ -95,8 +97,10 @@ const EmployeeForm = ({
                       />
                       {errors &&
                         errors.contact_number &&
-                        errors.contact_number.map((error) => (
-                          <span key={error} className="text-danger">
+                        errors.contact_number.map((error, index) => (
+                          <span key={index} className="text-danger">
+                            {index > 0 && ", "}{" "}
+                            {/* Add a comma with space if it's not the first error */}
                             {error}
                           </span>
                         ))}
