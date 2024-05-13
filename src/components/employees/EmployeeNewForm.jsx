@@ -4,6 +4,7 @@ import EmployeeForm from "./EmployeeForm";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeNewForm = () => {
+  // State to hold form errors and form data
   const [errors, setErrors] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -19,15 +20,20 @@ const EmployeeNewForm = () => {
     date_of_hiring: "",
   });
 
+  // Hook to navigate programmatically
   const navigate = useNavigate();
 
+  // Handler for form input changes
   const handleChange = (e) => {
+    // Update form data with the new value
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send POST request to create a new employee
       const response = await axios.post(
         "https://reactstaff-backend.onrender.com/api/v1/employees",
         formData
@@ -51,6 +57,7 @@ const EmployeeNewForm = () => {
       // });
     } catch (error) {
       if (error.response && error.response.data) {
+        // Set errors if there are validation errors from the server
         setErrors(error.response.data);
         console.log(errors);
       } else {
@@ -59,6 +66,7 @@ const EmployeeNewForm = () => {
     }
   };
 
+  // Render the EmployeeForm component with relevant props
   return (
     <EmployeeForm
       formData={formData}

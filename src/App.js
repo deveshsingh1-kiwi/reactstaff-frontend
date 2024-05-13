@@ -8,13 +8,19 @@ import EmployeeEditForm from "./components/employees/EmployeeEditForm";
 function App() {
   return (
     <Router>
+      {/* The Routes component defines the routes for the application */}
       <Routes>
-        <Route path="/" element=<EmployeeList /> />
-        <Route path="/employee/:id" element=<EmployeeDetails /> />
-        <Route path="/employee/new" element=<EmployeeNewForm /> />
-        <Route path="/employee/:id/edit" element=<EmployeeEditForm /> />
+        {/* Route for the homepage, rendering the EmployeeList component */}
+        <Route path="/" element={<EmployeeList />} />
+        {/* Route for viewing employee details, rendering the EmployeeDetails component */}
+        <Route path="/employee/:id" element={<EmployeeDetails />} />
+        {/* Route for creating a new employee, rendering the EmployeeNewForm component */}
+        <Route path="/employee/new" element={<EmployeeNewForm />} />
+        {/* Route for editing an existing employee, rendering the EmployeeEditForm component */}
+        <Route path="/employee/:id/edit" element={<EmployeeEditForm />} />
       </Routes>
     </Router>
   );
 }
+
 export default App;

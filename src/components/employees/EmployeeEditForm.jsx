@@ -4,7 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import EmployeeForm from "./EmployeeForm";
 
 const EmployeeEditForm = () => {
+  // Extracting the id parameter from the URL
   const { id } = useParams();
+
+  // State to hold form errors and form data
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -19,14 +22,17 @@ const EmployeeEditForm = () => {
     date_of_hiring: "",
   });
 
+  // Hook to navigate programmatically
   const navigate = useNavigate();
 
+  // Effect to fetch employee data when the component mounts
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
         const response = await axios.get(
           `https://reactstaff-backend.onrender.com/api/v1/employees/${id}`
         );
+        // Set form data with the fetched employee data
         setFormData(response.data);
       } catch (error) {
         console.error("Error:", error);
@@ -34,15 +40,19 @@ const EmployeeEditForm = () => {
     };
 
     fetchEmployeeData();
-  }, [id]);
+  }, [id]); // Dependency array ensures this effect runs when id changes
 
+  // Handler for form input changes
   const handleChange = (e) => {
+    // Update form data with the new value
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send PUT request to update employee data
       const response = await axios.put(
         `https://reactstaff-backend.onrender.com/api/v1/employees/${id}`,
         formData
@@ -53,6 +63,7 @@ const EmployeeEditForm = () => {
       navigate(`/employee/${id}`);
     } catch (error) {
       if (error.response && error.response.data) {
+        // Set errors if there are validation errors from the server
         setErrors(error.response.data);
         console.log(errors);
       } else {
@@ -61,6 +72,7 @@ const EmployeeEditForm = () => {
     }
   };
 
+  // Render the EmployeeForm component with relevant props
   return (
     <EmployeeForm
       formData={formData}

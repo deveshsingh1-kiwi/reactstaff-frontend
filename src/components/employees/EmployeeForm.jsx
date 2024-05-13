@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// EmployeeForm component to render the form for adding/editing an employee
 const EmployeeForm = ({
   formData,
   handleChange,
@@ -233,9 +234,11 @@ const EmployeeForm = ({
                     </div>
                   </div>
                 </div>
+                {/* Submit button */}
                 <button type="submit" className="btn btn-primary mt-4">
                   {submitButtonTitle}
                 </button>
+                {/* Link to go back */}
                 <Link to={`/`} className="btn btn-primary mt-4 ms-1">
                   Back
                 </Link>
