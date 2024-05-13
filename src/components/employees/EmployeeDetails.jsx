@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Importing useParams hook to access URL parameters
+import { useParams, Link, useLocation } from "react-router-dom"; // Importing useParams hook to access URL parameters
 import axios from "axios";
-import { Link } from "react-router-dom";
+import FlashMessage from "./FlashMessage";
 
 function EmployeeDetails() {
   const { id } = useParams(); // Accessing the id parameter from the URL using useParams hook
   const [employee, setEmployee] = useState(null); // State variable to hold employee details
   const [loading, setLoading] = useState(true); // State variable to track loading state
+  const location = useLocation();
+  const [flashMessage, setFlashMessage] = useState("");
+  const [flashType, setFlashType] = useState("");
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -26,6 +29,16 @@ function EmployeeDetails() {
     fetchEmployee(); // Call fetchEmployee function when component mounts or id parameter changes
   }, [id]); // Dependency array ensures the effect runs when id changes
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const message = searchParams.get("flashMessage");
+    const type = searchParams.get("flashType");
+    if (message && type) {
+      setFlashMessage(message);
+      setFlashType(type);
+    }
+  }, [location.search]);
+
   // If loading, display a loading message
   if (loading) {
     return <div>Loading...</div>;
@@ -39,6 +52,7 @@ function EmployeeDetails() {
   // Render employee details if employee is found
   return (
     <div className="container">
+      {flashMessage && <FlashMessage message={flashMessage} type={flashType} />}
       <div className="row">
         <div className="col-lg-8 mx-auto mt-4">
           <div className="card">

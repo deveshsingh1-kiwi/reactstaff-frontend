@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import EmployeeForm from "./EmployeeForm";
 import { useNavigate } from "react-router-dom";
+import FlashMessage from "./FlashMessage";
 
 const EmployeeNewForm = () => {
+  const [showFlash, setShowFlash] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
+  const [flashType, setFlashType] = useState("");
+
   // State to hold form errors and form data
   const [errors, setErrors] = useState([]);
 
@@ -29,6 +34,13 @@ const EmployeeNewForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const navigateWithFlashMessage = (path, message, type) => {
+    const flashMessage = encodeURIComponent(message);
+    const flashType = encodeURIComponent(type);
+    const url = `${path}?flashMessage=${flashMessage}&flashType=${flashType}`;
+    navigate(url);
+  };
+
   // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +53,12 @@ const EmployeeNewForm = () => {
       console.log(response.data);
       const newEmployeeId = response.data.id;
       // Redirect to the details page of the newly created employee
-      navigate(`/employee/${newEmployeeId}`);
+      // For creating a new employee
+      navigateWithFlashMessage(
+        `/employee/${newEmployeeId}`,
+        "Employee created successfully!",
+        "success"
+      );
       // Optionally, you can reset the form after successful submission
       // setFormData({
       //   first_name: "",
@@ -59,6 +76,10 @@ const EmployeeNewForm = () => {
       if (error.response && error.response.data) {
         // Set errors if there are validation errors from the server
         setErrors(error.response.data);
+        setShowFlash(true);
+        setFlashMessage("Error creating employee. Please check the form.");
+        setFlashType("danger");
+
         console.log(errors);
       } else {
         console.error("Error:", error);
@@ -68,14 +89,17 @@ const EmployeeNewForm = () => {
 
   // Render the EmployeeForm component with relevant props
   return (
-    <EmployeeForm
-      formData={formData}
-      formTitle={"Create New employee"}
-      handleSubmit={handleSubmit}
-      handleChange={handleChange}
-      submitButtonTitle={"Create Employee"}
-      errors={errors}
-    />
+    <>
+      {showFlash && <FlashMessage message={flashMessage} type={flashType} />}
+      <EmployeeForm
+        formData={formData}
+        formTitle={"Create New Employee"}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        submitButtonTitle={"Create Employee"}
+        errors={errors}
+      />
+    </>
   );
 };
 

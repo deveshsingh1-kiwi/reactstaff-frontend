@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import EmployeeForm from "./EmployeeForm";
+import FlashMessage from "./FlashMessage";
 
 const EmployeeEditForm = () => {
+  const [showFlash, setShowFlash] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
+  const [flashType, setFlashType] = useState("");
+
   // Extracting the id parameter from the URL
   const { id } = useParams();
 
@@ -48,6 +53,13 @@ const EmployeeEditForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const navigateWithFlashMessage = (path, message, type) => {
+    const flashMessage = encodeURIComponent(message);
+    const flashType = encodeURIComponent(type);
+    const url = `${path}?flashMessage=${flashMessage}&flashType=${flashType}`;
+    navigate(url);
+  };
+
   // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,12 +71,25 @@ const EmployeeEditForm = () => {
       );
       console.log(response.data);
 
+      setShowFlash(true);
+      setFlashMessage("Employee updated successfully!");
+      setFlashType("success");
+
       // Redirect to the details page of the edited employee
-      navigate(`/employee/${id}`);
+      // For updating an existing employee
+      navigateWithFlashMessage(
+        `/employee/${id}`,
+        "Employee updated successfully!",
+        "success"
+      );
     } catch (error) {
       if (error.response && error.response.data) {
         // Set errors if there are validation errors from the server
         setErrors(error.response.data);
+
+        setShowFlash(true);
+        setFlashMessage("Error updating employee. Please check the form.");
+        setFlashType("danger");
         console.log(errors);
       } else {
         console.error("Error:", error);
@@ -74,14 +99,17 @@ const EmployeeEditForm = () => {
 
   // Render the EmployeeForm component with relevant props
   return (
-    <EmployeeForm
-      formData={formData}
-      formTitle={"Edit employee"}
-      handleSubmit={handleSubmit}
-      handleChange={handleChange}
-      submitButtonTitle={"Update Employee"}
-      errors={errors}
-    />
+    <>
+      {showFlash && <FlashMessage message={flashMessage} type={flashType} />}
+      <EmployeeForm
+        formData={formData}
+        formTitle={"Edit Employee"}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        submitButtonTitle={"Update Employee"}
+        errors={errors}
+      />
+    </>
   );
 };
 
