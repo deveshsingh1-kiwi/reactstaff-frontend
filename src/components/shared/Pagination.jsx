@@ -1,5 +1,6 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
+import "../../App.css";
 
 // Pagination component to render pagination controls
 function Pagination({ pageCount, onPageChange }) {
