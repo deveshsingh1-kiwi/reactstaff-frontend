@@ -3,11 +3,13 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import EmployeeRow from "./EmployeeRow";
 import Pagination from "../shared/Pagination";
+import SearchBar from "./SearchBar";
 
 function EmployeeList() {
   // State variables
   const [employees, setEmployees] = useState([]); // Holds the list of employees
   const [currentPage, setCurrentPage] = useState(0); // Keeps track of the current page
+  const [searchTerm, setSearchTerm] = useState(""); // Holds the search term entered by the user
   const itemsPerPage = 10; // Number of items to display per page
 
   // Function to handle page changes
@@ -36,10 +38,24 @@ function EmployeeList() {
     fetchEmployees();
   }, []); // Empty dependency array ensures it runs only once on component mount
 
+  // Function to handle search input change
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(0); // Reset current page when search term changes
+  };
+
+  // Filter function to match employee names based on search term
+  const filterEmployees = (employee) => {
+    return employee.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+  };
+
   // Calculate start and end index for pagination
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedEmployees = employees.slice(startIndex, endIndex);
+  // Filter and paginate the employees based on search term and current page
+  const displayedEmployees = employees
+    .filter(filterEmployees)
+    .slice(startIndex, endIndex);
 
   return (
     <div className="container">
@@ -49,6 +65,12 @@ function EmployeeList() {
           <Link to={`/employee/new`} className="btn btn-primary my-3">
             Create New Employee
           </Link>
+
+          {/* Search bar */}
+          <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={handleSearchChange}
+          />
 
           {/* Title */}
           <h1 className="text-center">Employees List</h1>
